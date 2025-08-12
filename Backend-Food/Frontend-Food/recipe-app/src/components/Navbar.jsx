@@ -1,7 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import logo from '../assets/logo.png'
+import Model from './Model';
 function Navbar() {
+  const [isOpen, setIsOpen] =useState(false);
+  const checkLogin = () => {
+    setIsOpen(true)
+  }
+  const closeModel = () => {
+    setIsOpen(false)
+  }
+
+
+
   return (
+  <>
 <header>
   <nav className="navbar">
     <div className="logo">
@@ -12,9 +24,12 @@ function Navbar() {
       <li><a href="/about">Recibes</a></li>
       <li><a href="/login">About</a></li>
       <li><a href="/contact">Contact</a></li>
+      <li onClick={checkLogin}>login</li>
 </ul>
   </nav>
 </header>
+{(isOpen)&& <Model onClose={closeModel}/>}
+</>
   )
 }
 
