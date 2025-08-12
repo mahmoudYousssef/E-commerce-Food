@@ -27,8 +27,18 @@ body,
   margin-top: 10px;
   font-size: 22px;
 }
-
-.left button {
+modal-content {
+  border: none !important;
+}
+.modal-header{
+  border: none !important;
+}
+.error{
+  margin-top: 10px;
+  color: red;
+  font-size: 18px;
+}
+button {
   background-color: #ff9560;
   color: white;
   padding-top: 10px;
@@ -40,7 +50,7 @@ body,
   padding: 10px 20px;
 }
 
-.left button:hover {
+button:hover {
   background-color: #cf4303;
   cursor: pointer;
 }
@@ -218,7 +228,7 @@ margin-right: 25px;
 }
 
 .subscribe-button:hover {
-  background-color:  #7c2e00;
+  background-color:   #7c2e00;
 }
 
 /* Footer Bottom */

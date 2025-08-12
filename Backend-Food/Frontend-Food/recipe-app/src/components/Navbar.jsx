@@ -1,12 +1,13 @@
-import React, { useState } from 'react'
+import  { useState } from 'react'
 import logo from '../assets/logo.png'
-import Model from './Model';
+import Modal from './Modal';
+import InputForm from './InputForm';
 function Navbar() {
   const [isOpen, setIsOpen] =useState(false);
   const checkLogin = () => {
     setIsOpen(true)
   }
-  const closeModel = () => {
+  const closeModal = () => {
     setIsOpen(false)
   }
 
@@ -28,7 +29,9 @@ function Navbar() {
 </ul>
   </nav>
 </header>
-{(isOpen)&& <Model onClose={closeModel}/>}
+{isOpen && <Modal onClose={closeModal}>
+<InputForm />
+  </Modal>}
 </>
   )
 }
