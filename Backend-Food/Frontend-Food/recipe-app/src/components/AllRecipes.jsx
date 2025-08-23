@@ -16,14 +16,15 @@ function AllRecipes() {
   }, []);
   
   return (  
-    <div className="all-recipes">
+    <div className="recipes-container">
       <h2>All Recipes</h2>
-      <div className="recipe-list">
-        {recipes.map(recipe => (
-          <div key={recipe.id} className="recipe-card">
-            <h4>{recipe.title}</h4>
-            <p>{recipe.ingredients}</p>
-            <small>{recipe.instructions}</small>
+      <div className="cards-wrapper">
+        {recipes?.map((recipe) => (
+          <div key={recipe._id} className="recipe-card">
+            <img className='w-100' src={`http://localhost:5000/public/images/${recipe.coverImage}`} alt={recipe.title} />
+            <h4>{recipe?.title}</h4>
+            <p>{recipe?.ingredients}</p>
+            <small>{recipe?.instructions}</small>
             <div className="icons">
               <HiHeart/>
             </div>
@@ -32,6 +33,6 @@ function AllRecipes() {
       </div>
     </div>
   );
-}
+} 
 
 export default AllRecipes;

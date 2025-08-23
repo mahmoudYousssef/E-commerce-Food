@@ -6,6 +6,7 @@ function InputForm() {
   const [password, setPassword] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,6 +22,7 @@ function InputForm() {
 
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
+      setSuccess(response.data.message);
     } catch (err) {
       setError(err.response?.data?.message || 'An error occurred');
     }
@@ -50,6 +52,7 @@ function InputForm() {
             {isSignUp ? "Sign Up" : "LogIn"}
           </button>
         </div>
+        <h5 className='success'>{(success !== "") && success}</h5>
         <h5 className='error'>{(error !== "") && error}</h5>
         <p onClick={() => setIsSignUp(!isSignUp)} className='mt-5'>
           {isSignUp ? "Already have an account?" : "Don't have an account"} Sign {isSignUp ? "In" : "Up"}

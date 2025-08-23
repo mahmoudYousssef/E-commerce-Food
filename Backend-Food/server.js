@@ -21,6 +21,7 @@ app.get('/', (req, res) => {
 
 app.use('/recipe', require('./routes/recipe'));
 app.use('/user', require('./routes/user'));
+app.use('/public', express.static('public'));
 
 // Start server
 app.listen(PORT, () => {

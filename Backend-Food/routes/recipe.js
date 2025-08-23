@@ -1,7 +1,19 @@
 const express = require('express')
 const Recipe = require('../models/RecipeSchema');
 const router = express.Router();
+const multer = require('multer');
+const verifyToken = require('../middleware/auth');
 
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './public/images')
+  },
+  filename: function (req, file, cb) {
+    const filename = Date.now() + '-' + file.fieldname
+    cb(null, filename)
+  }
+})
+const upload = multer({ storage: storage })
 
 router.get('/', async (req, res) => {
   try {
@@ -13,7 +25,7 @@ router.get('/', async (req, res) => {
   }});
 
 
-router.post('/', async (req, res) => {
+router.post('/', upload.single('coverImage') ,verifyToken,  async (req, res) => {
 const { title, ingredients, instructions } = req.body;
 if (!title || !ingredients || !instructions) {
   return res.status(400).json({ error: 'Title, ingredients, and instructions are required.' });
@@ -22,6 +34,8 @@ const newRecipe = await Recipe.create({
   title,
   ingredients,
   instructions,
+  coverImage: req.file?.filename ,
+  createdBy: req.user._id 
   
 });
 res.status(201).json(newRecipe);
