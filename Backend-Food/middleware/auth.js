@@ -15,11 +15,10 @@ const verifyToken = async (req, res, next) => {
     }
     else{
       console.log(decoded);
-      req.user = decoded; 
+      req.user = decoded;  
       next();
     }
-  }
-  )
+  });
 }
 
 module.exports = verifyToken;

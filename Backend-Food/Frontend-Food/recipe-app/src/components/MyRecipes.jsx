@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { HiHeart } from 'react-icons/hi';
+import { HiMiniPencilSquare } from "react-icons/hi2";
+import { MdDeleteOutline } from "react-icons/md";
+
 
 function MyRecipes() {
   const [recipes, setRecipes] = useState([]);
@@ -11,14 +14,23 @@ function MyRecipes() {
       if (!user) return;
       
       const { data } = await axios.get('http://localhost:5000/recipe')
-        const myRecipes = data.filter(recipe => recipe.createdBy === user._id);
+        const myRecipes = data.filter(recipe => recipe.createdBy === user.id);
         setRecipes(myRecipes);
       
     };
-    
     fetchMyRecipes();
+    
+  
   }, []);
 
+
+  const onDeleteRecipe = async (id) => {
+  await axios.delete(`http://localhost:5000/recipe/${id}`)
+  .then((response) =>
+    console.log(response.data));
+    setRecipes(prev => prev.filter(recipe => recipe._id !== id));
+
+    }
   return (
     <div className="recipes-container">
       <h2>My Recipes</h2>
@@ -35,8 +47,17 @@ function MyRecipes() {
               />
               <h4 className='mt-4'>{recipe.title}</h4>
               <p>{recipe.ingredients}</p>
-              <HiHeart className='icon' />
+              <HiHeart className='icons' />
+              <div className="mt-2 icons-down ">
+                <a href={`/EditRecipe/${recipe._id}`}>
+                <HiMiniPencilSquare className='icon' />
+                </a>
+                <MdDeleteOutline 
+                onClick={() => onDeleteRecipe(recipe._id)}
+                className='icon' />
             </div>
+            </div>
+                
           ))}
         </div>
       )}

@@ -335,3 +335,11 @@ margin-right: 25px;
   color: #c61414;
   font-size: 26px;
 }
+.icons-down{
+ padding: 5px;
+}
+.icons-down .icon{
+color: #cf4303;
+  font-size: 22px;
+  margin-right: 10px
+}

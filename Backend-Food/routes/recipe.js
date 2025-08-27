@@ -26,6 +26,8 @@ router.get('/', async (req, res) => {
 
 
 router.post('/', upload.single('coverImage') ,verifyToken,  async (req, res) => {
+  console.log(req.user);
+  
 const { title, ingredients, instructions } = req.body;
 if (!title || !ingredients || !instructions) {
   return res.status(400).json({ error: 'Title, ingredients, and instructions are required.' });
@@ -35,7 +37,7 @@ const newRecipe = await Recipe.create({
   ingredients,
   instructions,
   coverImage: req.file?.filename ,
-  createdBy: req.user._id 
+  createdBy: req.user.id 
   
 });
 res.status(201).json(newRecipe);
@@ -57,11 +59,17 @@ router.get('/:id', async (req, res) => {
 }
 );
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', upload.single('coverImage') , async (req, res) => {
   const { id } = req.params;
   const { title, ingredients, instructions } = req.body;
   try {
-    const updatedRecipe = await Recipe.findByIdAndUpdate(id, { title, ingredients, instructions }, { new: true, runValidators: true });
+    const updatedRecipe = await Recipe.findByIdAndUpdate(id, {
+       title,
+      ingredients,
+       instructions,
+      coverImage: req.file?.filename ,
+        
+}, { new: true, runValidators: true });
     if (!updatedRecipe) {
       return res.status(404).json({ error: 'Recipe not found' });
     }

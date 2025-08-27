@@ -12,21 +12,20 @@ function InputForm() {
     e.preventDefault();
     setError(''); // Reset error message
     
-    try {
-      const endPoint = isSignUp ? 'register' : 'signin';
+      let endPoint = (isSignUp) ? 'register' : 'signin';
       
-      const response = await axios.post(
+       await axios.post(
         `http://localhost:5000/user/${endPoint}`,
         { email, password }
-      );
+      ).then((response) => {
 
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
       setSuccess(response.data.message);
-    } catch (err) {
-      setError(err.response?.data?.message || 'An error occurred');
-    }
-  };
+    })
+     .catch (err => 
+      setError(err.response?.data?.message || 'An error occurred'))
+    };
 
   return (
     <>

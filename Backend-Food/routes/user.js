@@ -26,7 +26,6 @@ router.post('/register', async (req, res) => {
     password: hashedPassword,
   });
   await newUser.save();
-
   let token = jwt.sign({ email, id: newUser._id }, process.env.SECRET_KEY, { expiresIn: "1w" })
   return res.status(201).json({ message: 'User registered successfully', token, user:newUser });
 })

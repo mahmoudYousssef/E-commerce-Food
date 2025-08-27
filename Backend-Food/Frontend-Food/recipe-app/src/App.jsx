@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 import MyRecipes from './components/MyRecipes';
 import MyFavRecipes from './components/MyFavRecipes';
 import AddRecipes from './components/AddRecipes';
+import EditRecipe from './pages/EditRecipe';
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
           <Route path='/myRecipes' element={<MyRecipes />} />
           <Route path='/myFavRecipes' element={<MyFavRecipes />} />
           <Route path='/addRecipes' element={<AddRecipes />} />
+          <Route path='/EditRecipe/:id' element={<EditRecipe />} />
 
         </Routes>
       </BrowserRouter>
